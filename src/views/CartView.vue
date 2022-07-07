@@ -1,18 +1,18 @@
 <template>
-  <HelloWorld />
+  <cart />
 </template>
 
 <script>
 import { defineComponent } from 'vue';
 
 // Components
-import HelloWorld from '../components/counterHome.vue';
+import cart from '../components/cart.vue';
 
 export default defineComponent({
-  name: 'HomeView',
+  name: 'cartView',
 
   components: {
-    HelloWorld,
+    cart,
   },
 });
 </script>
