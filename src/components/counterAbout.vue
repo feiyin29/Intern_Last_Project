@@ -1,46 +1,21 @@
 <template>
-<v-card>
-    <v-layout>
-      <v-navigation-drawer
-      v-model="drawer"
-      >
-          <v-list density="compact" nav
-            class="mb-6"
-            v-for="subheader in filter[0].header"
-              :key="subheader"
-          >
-            <v-list-subheader class="text-uppercase">{{subheader}}</v-list-subheader>
-            <v-list-item 
-              class="d-flex flex-column align-start"
-              v-for="item in filter[1].flavour"
-              :key="item.name"
-            >
-              <v-checkbox 
-                :label= "item.name"
-                :color= "item.color"
-                hide-details
-                class="mb-n8"
-              ></v-checkbox>
-          </v-list-item> 
-          </v-list>
-      </v-navigation-drawer>
-      <v-main style="height: 550px">
-        <div class="d-flex justify-center align-center h-100">
-          <v-btn
-            color="primary"
-            @click.stop="drawer = !drawer"
-          >
-            Toggle
-          </v-btn>
-        </div>
-      </v-main>
-    </v-layout>
-  </v-card>
+<v-select
+    v-model="select"
+    :items="sort"
+    item-title="state"
+    label="Select"
+    return-object
+    single-line
+    variant="solo"
+  ></v-select>
+
 </template>
 <script >
 export default {
     data () {
       return {
+        select: { state: 'Sort by Default'},
+        sort: [ 'Sort by Popularity', 'Sort by Newest', 'Sort by Price : High-Low', 'Sort by Price : Low-High'],
         drawer: null,
         filter: [
           {

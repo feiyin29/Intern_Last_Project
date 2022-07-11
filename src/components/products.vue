@@ -4,12 +4,11 @@
             <v-col cols="12">
                 <v-breadcrumbs :items="items"></v-breadcrumbs>
             </v-col>
-            <v-col cols="12">
-                <v-row no-gutters class="pl-4 tw-text-3xl mb-8">Cookies </v-row>
-            </v-col>
-            <v-col cols="12">
-                <v-row no-gutters class="d-flex justify-end">
-                    <v-col cols="1">
+            <v-col cols="12" class="mt-n10">
+              <v-row no-gutters>
+                <v-col cols="6" class="d-flex align-center pl-4 tw-text-3xl mb-8">Cookies </v-col>
+                <v-col cols="6" class="d-flex justify-end mb-8">
+                    <v-col cols="2" class="mr-2 pt-6">
                         <v-switch
                             v-model="model"
                             hide-details
@@ -19,21 +18,29 @@
                             @click.stop="drawer = !drawer"
                         ></v-switch>
                     </v-col>
-                    <v-col cols="2">
-                        <v-select
-                            :items="sort"
-                            label="Sort by"
-                            variant="outlined"
-                            density="compact"
-                        ></v-select>
+                    <v-col cols="4" class="pt-6">
+                      <v-select
+                        v-model="select"
+                        :items="sort"
+                        item-title="state"
+                        label="Select"
+                        return-object
+                        single-line
+                        variant="underlined"
+                      ></v-select>
                     </v-col>
-                </v-row>
-            </v-col>   
-            <v-col cols="12">
-                <v-card>
+                </v-col>
+              </v-row>
+            </v-col>
+            <v-col cols="12" class="mt-n10">
+                <v-card 
+                  color="#E4E4E4"
+                  rounded="xl"
+                >
                     <v-layout>
                     <v-navigation-drawer
                       v-model="drawer"
+                      theme="light"
                     >
                         <v-list density="compact" nav
                             class="mb-6"
@@ -46,6 +53,7 @@
                             v-for="item in filter[1].flavour"
                             :key="item.name"
                             >
+                            <!-- :v-for="`item in filter[1].{subheadder}`" -->
                             <v-checkbox 
                                 :label= "item.name"
                                 :color= "item.color"
@@ -55,27 +63,28 @@
                         </v-list-item> 
                         </v-list>
                     </v-navigation-drawer>
-                    <v-main style="height: 1020px">
-                        <v-row no-gutters>
+                    <v-main style="height: 800px" class="d-flex justify-center align-center">
+                        <v-row no-gutters class="my-4">
                             <v-col 
-                                cols="4"
+                                cols="3"
                                 v-for="(item, index) in store.products"
                                 :key="item.name"
-                                class="my-10 "
+                                class="my-4 "
                             >
                                 <v-card
                                     color="#ffffff"
                                     rounded="xl"
                                     class="mx-auto pa-4" 
-                                    max-width="350" 
+                                    max-width="250" 
+                                    max-height="350"
                                 >
                                     <v-img
-                                        src="src/assets/biscoffsmore.png"
-                                        class="align-start " 
-                                        height="200"
+                                        :src="item.img"
+                                        class="align-start" 
+                                        height="150"
                                         cover                             
                                     >
-                                        <v-row class="d-flex justify-end ma-2" >
+                                        <v-row class="d-flex justify-end ma-1" >
                                             <v-btn
                                                 variant="text"
                                                 :class="'{{ item.fav }}' ? 'text-red' : 'tw-text-gray-300'"
@@ -86,8 +95,8 @@
                                     </v-img>
                                     <v-card-title class="d-flex justify-center">{{item.name}}</v-card-title>
                                     <v-card-subtitle class="d-flex justify-center mt-n2">stock:{{item.stock}}</v-card-subtitle>
-                                    <v-card-text class="d-flex justify-center text-body-1 my-1">฿{{item.price}}</v-card-text>
-                                    <v-row no-gutters class="d-flex justify-center">
+                                    <v-card-text class="d-flex justify-center text-body-1 mt-n2">฿{{item.price}}</v-card-text>
+                                    <v-row no-gutters class="d-flex justify-center mt-n2">
                                         <v-btn 
                                             icon
                                             flat
@@ -109,9 +118,27 @@
                                         >
                                             <v-icon size="15">mdi-plus</v-icon>
                                         </v-btn>
-                                        <v-col cols="12" class="d-flex justify-center mt-4">
-                                            <v-btn flat rounded="pill" size="small" color="#d84f47" class="tw-text-white">
+                                        <v-col cols="12" class="d-flex justify-center mt-2">
+                                            <v-btn 
+                                              flat 
+                                              rounded="pill" 
+                                              size="small" 
+                                              color="#d84f47" 
+                                              class="tw-text-white"
+                                              v-if="item.stock != 0"
+                                              @click="store.addToCart(item)"
+                                            >
                                                 add to cart
+                                            </v-btn>
+                                            <v-btn 
+                                              flat
+                                              disabled
+                                              rounded="pill" 
+                                              size="small" 
+                                              class="tw-text-white"
+                                              v-else
+                                            >
+                                                out of stock
                                             </v-btn>
                                         </v-col>
                                     </v-row>              
@@ -154,9 +181,10 @@ export default {
           href: 'breadcrumbs_link_2',
         },
       ],
-      sort: [ 'Popularity', 'Newest', 'Price : High-Low', 'Price : Low-High'],
+      select: { state: 'Sort by Default'},
+      sort: [ 'Sort by Popularity', 'Sort by Newest', 'Sort by Price : High-Low', 'Sort by Price : Low-High'],
       fav: false,
-      drawer: null,
+      drawer: false,
       filter: [
           {
             header: ["type", "flavour", "color"],
@@ -217,13 +245,10 @@ export default {
               },
             ]
           },
-        ],
+        ], 
     }),
   } 
 </script>
 
 <style  scoped>
-.card {
-    border: 1px solid #000080;
-}
 </style>
