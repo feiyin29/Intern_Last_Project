@@ -10,9 +10,9 @@ const router = createRouter({
       component: HomeView
     },
     {
-      path: '/about',
-      name: 'about',
-      component: () => import('../views/AboutView.vue')
+      path: '/cog',
+      name: 'cog',
+      component: () => import('../views/CogView.vue')
     },
     {
       path: '/product',
@@ -23,7 +23,22 @@ const router = createRouter({
       path: '/cart',
       name: 'cart',
       component: () => import('../views/CartView.vue')
-    }
+    },
+    {
+      path: '/favorite',
+      name: 'favorite',
+      component: () => import('../views/FavoriteView.vue')
+    },
+    {
+      path: '/test',
+      name: 'test',
+      component: () => import('../views/testView.vue')
+    },
+    {
+      path: '/aboutus',
+      name: 'aboutus',
+      component: () => import('../views/AboutusView.vue')
+    },
   ]
 })
 

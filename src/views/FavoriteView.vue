@@ -1,18 +1,18 @@
 <template>
-  <About />
+  <Favorite />
 </template>
 
 <script>
 import { defineComponent } from 'vue';
 
 // Components
-import About from '../components/counterAbout.vue';
+import Favorite from '@/components/favorite.vue';
 
 export default defineComponent({
-  name: 'AboutView',
+  name: 'FavoriteView',
 
   components: {
-    About,
+    Favorite,
   },
 });
 </script>

@@ -3,86 +3,185 @@ export const useProductStore = defineStore({
   id: 'productStore',
   state: () => ({
     products: [
-      { name: "Biscoff S\'more",
+      {
+        name: "Biscoff S\'more",
         img: 'src/assets/biscoffsmore.png',
         price: '69',
         stock: '25',
         wanted: 1,
+        selectInCart: 1,
+        type: "S'more",
+        flavour: "Biscoff",
+        color: "Brown",
         fav: false,
       },
-      { name: 'Red Velvet S\'more',
+      {
+        name: 'Red Velvet S\'more',
         img: 'src/assets/biscoffsmore.png',
         price: '79',
         stock: '23',
         wanted: 1,
+        selectInCart: 1,
+        type: "S'more",
+        flavour: "Red Velvet",
+        color: "Red",
         fav: false,
       },
-      { name: 'Matcha S\'more',
+      {
+        name: 'Matcha S\'more',
         img: 'src/assets/biscoffsmore.png',
         price: '89',
         stock: '10',
         wanted: 1,
+        selectInCart: 1,
+        type: "S'more",
+        flavour: "Matcha",
+        color: "Green",
         fav: false,
       },
-      { name: 'Choco S\'more',
+      {
+        name: 'Choco S\'more',
         img: 'src/assets/biscoffsmore.png',
         price: '79',
         stock: '0',
         wanted: 1,
+        selectInCart: 1,
+        type: "S'more",
+        flavour: "Chocolate",
+        color: "Black",
         fav: false,
       },
-      { name: 'Oreo S\'more',
+      {
+        name: 'Oreo S\'more',
         img: 'src/assets/biscoffsmore.png',
         price: '69',
         stock: '4',
         wanted: 1,
+        selectInCart: 1,
+        type: "S'more",
+        flavour: "Oreo",
+        color: "Black",
         fav: false,
       },
-      { name: 'Peanut Butter S\'more',
+      {
+        name: 'Peanut Butter S\'more',
         img: 'src/assets/biscoffsmore.png',
         price: '79',
         stock: '4',
         wanted: 1,
+        selectInCart: 1,
+        type: "S'more",
+        flavour: "Butter",
+        color: "Brown",
         fav: false,
       },
-      { name: 'Minty S\'more',
+      {
+        name: 'Minty S\'more',
         img: 'src/assets/biscoffsmore.png',
         price: '79',
         stock: '4',
         wanted: 1,
+        selectInCart: 1,
+        type: "S'more",
+        flavour: "Mint",
+        color: "Green",
         fav: false,
       },
-      
+      {
+        name: 'Chocolate Chip Cookie',
+        img: 'src/assets/biscoffsmore.png',
+        price: '49',
+        stock: '14',
+        wanted: 1,
+        selectInCart: 1,
+        type: "Cookie",
+        flavour: "Chocolate",
+        color: "Brown",
+        fav: false,
+      },
+
     ],
+    showProduct: [],
     cart: [],
-  }),                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 
+    voucher: [{
+      name: 'Free Shipping',
+      discount: "Number(Shipping.value)"
+    },
+    {
+      name: '10% off',
+      discount: "0.1 * sumTotal.value"
+    }
+    ],
+    myFav: [],
+
+  }),
   actions: {
+    addNewProduct(data) {
+      this.products.push(data);
+      console.log("out ", this.products);
+    },
+    showing(data) {
+      this.showProduct.push(data);
+    },
+    notShow() {
+      this.showProduct.splice(0, this.showProduct.length);
+    },
     addToCart(data) {
-      this.cart.push(data);
+      const findCart = this.cart.find((each) => {
+        if (each.name == data.name) return each
+      })
+      const findProd = this.products.find((each) => {
+        if (each.name == data.name) return each
+      })
+      console.log(find);
+      if (this.cart.length == 0 || findCart == undefined) {
+        this.cart.push(data);
+        findProd.selectInCart = data.wanted;
+      }
+      else findCart.selectInCart += data.wanted;
+      findProd.wanted = 1;
     },
     deleteCart(index) {
       this.cart.splice(index, 1);
     },
-    increaseCount(index){
-        this.products[index].wanted < this.products[index].stock ?
-        this.products[index].wanted++ : this.products[index].stock
-      
-      },
-    decreaseCount(index){
-      if ( this.products[index].wanted != 0 ) this.products[index].wanted--
+    increaseCount(index) {
+      if (this.products[index].wanted < this.products[index].stock &&
+        (this.products[index].selectInCart + this.products[index].wanted) < this.products[index].stock)
+        this.products[index].wanted++
+      else this.products[index].stock
+    },
+    decreaseCount(index) {
+      if (this.products[index].wanted != 0) this.products[index].selectInCart--
       else this.products[index].wanted = 0
     },
-    increaseCountCart(index){
-      this.cart[index].wanted < this.cart[index].stock ?
-      this.cart[index].wanted++ : this.cart[index].stock
-    
+    increaseCountCart(index) {
+      this.cart[index].selectInCart < this.cart[index].stock ?
+        this.cart[index].selectInCart++ : this.cart[index].stock
     },
-    decreaseCountCart(index){
-      if ( this.cart[index].wanted != 0 ) this.cart[index].wanted--
-      else this.cart[index].wanted = 0
+    decreaseCountCart(index) {
+      if (this.cart[index].selectInCart != 0) this.cart[index].selectInCart--
+      else this.cart[index].selectInCart = 0
     },
-    favorite(index){
-      (this.products[index].fav) = !(this.products[index].fav)
+    checkOut() {
+      for (let i = 0; i < this.cart.length; i++) {
+        const searchIndex = this.products.findIndex((item) => item.name == this.cart[i].name);
+        this.products[searchIndex].stock -= this.cart[i].selectInCart
+      }
+      this.cart.splice(0, this.cart.length);
+
+    },
+    favorite(name) {
+      const searchIndex = this.products.findIndex((item) => item.name == name);
+      const find = this.products.find((each) => {
+        if (each.name == name) return each
+      })
+      if (find.fav == false) this.myFav.push(find);
+      else {
+        const index = this.myFav.findIndex((item) => item.name == name);
+        this.myFav.splice(index, 1);
+      }
+      find.fav = !find.fav
+      this.products.splice(searchIndex, 1, find)
     }
   },
 });

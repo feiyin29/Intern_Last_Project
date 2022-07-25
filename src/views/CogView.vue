@@ -1,18 +1,18 @@
 <template>
-  <Home />
+  <profile />
 </template>
 
 <script>
 import { defineComponent } from 'vue';
 
 // Components
-import Home from '@/components/home.vue';
+import profile from '../components/addProd.vue';
 
 export default defineComponent({
-  name: 'HomeView',
+  name: 'profileView',
 
   components: {
-    Home,
+    profile,
   },
 });
 </script>
