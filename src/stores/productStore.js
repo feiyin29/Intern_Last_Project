@@ -113,9 +113,33 @@ export const useProductStore = defineStore({
     }
     ],
     myFav: [],
+    type: ["Cookie", "S'more",],
+    color: ['Yellow', 'Green', 'Brown', 'Red', 'Pink'],
+    flavour: ['Vanila', 'Chocolate', 'Matcha','Oreo', 'Butter', 'Red Velvet','Mint', 'Biscoff' ],
 
   }),
   actions: {
+    updateByEdit(item) {
+      const find = this.products.find((each, index) => {
+        console.log(index)
+        console.log(item.index)
+
+        if (index == item.index.value) return each
+      })
+      find.name = item.name.value
+      find.price = item.price.value
+      find.stock = item.stock.value
+      find.img = item.img.value
+      this.products.splice(item.index.value, 1, find)
+    },
+    editProd(input, index){
+      console.log("input",input)
+      console.log("its editProd work");
+    },
+    deleteProd(index){
+      this.products.splice(index, 1);
+      
+    },
     addNewProduct(data) {
       this.products.push(data);
       console.log("out ", this.products);

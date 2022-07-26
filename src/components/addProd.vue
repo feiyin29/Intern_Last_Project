@@ -9,6 +9,7 @@
     >
         Add new product
     </v-col>
+    <v-col cols="12">
     <v-form
         ref="form"
         v-model="valid"
@@ -24,7 +25,7 @@
         color="#F7F7F7"
         rounded="xl"
         height="570"
-        width="147%"
+        width="100%"
     >
         <v-row no-gutters >
             <v-col cols="6" class="pa-10">
@@ -87,7 +88,7 @@
                             <v-select
                                 v-model="selectType"
                                 :rules="[v => !!v || 'Type is required']"
-                                :items="type"
+                                :items="store.type"
                                 variant="outlined"
                             ></v-select>
                         </v-row>
@@ -100,7 +101,7 @@
                             <v-select
                                 v-model="selectFlavour"
                                 :rules="[v => !!v || 'Flavour is required']"
-                                :items="flavour"
+                                :items="store.flavour"
                                 variant="outlined"
                             ></v-select>
                         </v-row>
@@ -111,7 +112,7 @@
                         <v-select
                                 v-model="selectColor"
                                 :rules="[v => !!v || 'Color is required']"
-                                :items="color"
+                                :items="store.color"
                                 variant="outlined"
                             ></v-select>
                     </v-row>
@@ -179,7 +180,9 @@
         </v-row>
     </v-sheet>
     </v-form>
+    </v-col>
     </v-row>
+    
  </v-container>
 </template>
 
@@ -197,10 +200,7 @@ export default {
         const file = ref(null);
         const price = ref();
         const amount = ref();
-        const type= ["Cookie", "S'more",];
-        const color= ['Yellow', 'Green', 'Brown', 'Red', 'Pink'];
-        const flavour= ['Vanila', 'Chocolate', 'Matcha','Oreo', 'Butter', 'Red Velvet','Mint', 'Biscoff' ];
-
+        
         function add(){
             const newProduct = { name: name.value,
                                  img: file.value,
@@ -218,7 +218,7 @@ export default {
             store.addNewProduct(newProduct);
         }
 
-        return {type, color, flavour, add, selectType, name, 
+        return { store, add, selectType, name, 
                 file, price, amount, selectColor, selectFlavour, selectType}
     },
     data: () => ({  

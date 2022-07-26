@@ -1,35 +1,44 @@
 <template>
     <v-container fluid class="pa-0 ">
         <v-app-bar color="#d84f47">
-            <router-link to="/product">
+            <v-col cols="5" class="d-flex">
                 <v-btn 
                     rounded 
                     class="text-white"
+                    @click="this.$router.push('/product')"
                 >
                     product
                 </v-btn>
-            </router-link>
-            <v-spacer></v-spacer>
-            <router-link to="/">
+                <v-btn 
+                    rounded 
+                    class="text-white"
+                    @click="this.$router.push('/aboutus')"
+                >
+                    about us
+                </v-btn>
+            </v-col>
+            <v-col cols="2" class="d-flex justify-center">
                 <v-btn
                     rounded 
                     class="tw-text-2xl text-white"
+                    @click="this.$router.push('/')"
                 >
                     crunch
                 </v-btn>
-            </router-link>
-            <v-spacer></v-spacer>
-            <router-link to="/favorite">
+            </v-col>
+            <v-col cols="5" class="d-flex justify-end">
                 <v-btn icon>
                     <v-icon 
                         class="text-white"
+                        @click="this.$router.push('/favorite')"
                     >
                         mdi-heart-outline
                     </v-icon>
                 </v-btn>
-            </router-link>
-            <router-link to="/cart">
-                <v-btn icon>
+                <v-btn 
+                    icon
+                    @click="this.$router.push('/cart')"
+                >
                     <v-badge 
                         :content="cartLength" 
                         color="white" 
@@ -39,12 +48,13 @@
                         <v-icon class="text-white">mdi-shopping-outline</v-icon>
                     </v-badge>
                 </v-btn>
-            </router-link>
-            <router-link to="/cog">
-                <v-btn icon>
+                <v-btn 
+                    icon
+                    @click="this.$router.push('/cog')"
+                >
                     <v-icon class="text-white">mdi-cog-outline</v-icon>
                 </v-btn>
-            </router-link>
+            </v-col>
         </v-app-bar>
     </v-container>
 </template>

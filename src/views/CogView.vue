@@ -1,18 +1,21 @@
 <template>
-  <profile />
+  <addProd />
+  <editProd />
 </template>
 
 <script>
 import { defineComponent } from 'vue';
 
 // Components
-import profile from '../components/addProd.vue';
+import addProd from '../components/addProd.vue';
+import editProd from '../components/editProd.vue';
 
 export default defineComponent({
-  name: 'profileView',
+  name: 'cogView',
 
   components: {
-    profile,
+    addProd,
+    editProd,
   },
 });
 </script>

@@ -2,8 +2,8 @@
     <v-container fluid class="pa-0 mt-16">
         <v-footer class="tw-bg-[#d84f47]">
             <v-row no-gutters justify="center">
-                <v-row no-gutters class="ma-10">
-                    <v-col cols="4" class="text-white">
+                <v-row no-gutters class="ma-10 justify-center">
+                    <v-col cols="5" class="text-white">
                         <v-row no-gutters class="logo">CRUNCH</v-row>
                         <v-row no-gutters class="mt-5">
                             <v-icon>mdi-map-marker</v-icon>
@@ -18,7 +18,7 @@
                             <span class="ml-2">crunchCookies@gmail.co.th</span>
                         </v-row>
                     </v-col>
-                    <v-col cols="4" class="mt-12">
+                    <v-col cols="5" class="mt-12">
                         <v-btn 
                             variant="plain" 
                             class="
@@ -49,23 +49,6 @@
                             about us
                         </v-btn>
                         <v-divider class="mt-1 mb-2 mr-16"></v-divider>
-                    </v-col>
-                    <v-col cols="4" class="mt-15">
-                        <v-row no-gutters class="text-uppercase text-white">keep in touch!</v-row>
-                        <v-divider class="mt-2 mb-2 "></v-divider>
-                        <v-row no-gutters class="mt-8">
-                            <v-text-field 
-                                label="your email address" 
-                                single-line 
-                                variant="solo"
-                            ></v-text-field>
-                            <v-btn 
-                                color="black" 
-                                size="x-large"
-                            >
-                                submit
-                            </v-btn>
-                        </v-row>
                     </v-col>
                 </v-row>
                 <v-col class="text-center text-white" cols="12">
