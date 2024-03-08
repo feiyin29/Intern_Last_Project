@@ -1,6 +1,6 @@
-# wantaStore
+# Cookies Shop (E-commerce website)
 
-This template should help get you started developing with Vue 3 in Vite.
+developing with Vue 3 in Vite.
 
 ## Recommended IDE Setup
 
